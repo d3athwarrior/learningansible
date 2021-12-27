@@ -1,0 +1,14 @@
+---
+- name: Simple Ansible Playbook example
+  hosts: localhost
+  tasks:
+    - name: Create files directory
+      file:
+        path: ./files
+        state: directory
+        mode: 0744
+    - name: Create a dummy file in the current directory
+      copy:
+        content: Hello World!
+        dest: ./files/testfile.txt
+        mode: 0644
