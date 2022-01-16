@@ -1,0 +1,6 @@
+-
+  name: Pinging the guest on KVM # Playbook name
+  hosts: all
+  tasks:
+    - name: Ping the guest VM # Task description
+      ansible.builtin.ping:
