@@ -1,0 +1,17 @@
+- name: "Learning how to use variables in ansible"
+  hosts: all
+  vars:
+    sample_content_for_temp_file: Hi! This is a sample text fetched from a variable and then written into a file.
+    temp_file_name: Sample_Text.txt
+  vars_files:
+    - ./variables/d3athwarriorvm.yml
+  tasks:
+    - name: "Write a file in /tmp directory"
+      ansible.builtin.copy:
+        dest: /tmp/{{ temp_file_name }}
+        content: '{{ sample_content_for_temp_file }} {{ additional_text }}'
+        mode: 0644
+    - name: "Delete the file in /tmp directory"
+      ansible.builtin.file:
+        path: /tmp/{{ temp_file_name }}
+        state: absent
