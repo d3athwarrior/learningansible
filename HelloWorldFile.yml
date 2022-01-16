@@ -1,14 +1,14 @@
----
+--- # The 3 '-' indicate the beginning of a YAML document or to indicate the existance of multiple documents in a single file.
 - name: Simple Ansible Playbook example
-  hosts: localhost
+  hosts: all
   tasks:
-    - name: Create files directory
-      file:
+    - name: Create files directory # Task description
+      ansible.builtin.file: # Ansible module name
         path: ./files
         state: directory
         mode: 0744
-    - name: Create a dummy file in the current directory
-      copy:
+    - name: Create a dummy file in the current directory # Task description
+      ansible.builtin.copy:
         content: Hello World!
         dest: ./files/testfile.txt
         mode: 0644
