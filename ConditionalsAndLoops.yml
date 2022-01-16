@@ -1,0 +1,32 @@
+- name: Installing applications on the guest vm using conditionals
+  hosts: all
+  vars:
+    packages:
+      - name: node
+        required: False
+      - name: pip
+        required: False
+      - name: vlc
+        required: True
+      - name: code
+        required: True
+  tasks:
+    - name: Print all available facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
+    - name: Install Softwares on Archlinux machines
+      become: yes
+      community.general.pacman:
+        name: '{{ item.name }}' # Array items are fetched as 'items' inside of tasks
+        state: installed
+      when: ansible_os_family == 'Archlinux' and item.required
+      loop: '{{ packages }}'
+
+    - name: Install Softwares on Debian machines
+      become: yes
+      ansible.builtin.apt:
+        name: code
+        state: installed
+      when: ansible_os_family == 'Debian' and item.required
+      loop: '{{ packages }}'
